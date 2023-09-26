@@ -30,17 +30,22 @@ Before deploying and using the Ivanti Data Import Node.js Application, make sure
 1. Clone this repository to your server.
 
    ```bash
-   git clone https://github.com/your-repo/ivanti-data-import-app.git
-   cd ivanti-data-import-app
+   git clone https://github.com/mhtajan/ivanti-csv-xsls-import.git
+   cd ivanti-csv-xsls-import
    ```
 
 2. Install the required Node.js packages using npm.
 
    ```bash
-   npm install
+   npm install axios dotenv fs-extra xlsx
    ```
 
-3. Configure the application by editing the `config.js` file. Specify the Ivanti API endpoint, authentication method, and other settings.
+3. Create a `.env` file in the root directory of the application and configure it with your environment-specific settings. Here's an example `.env` file:
+
+   ```dotenv
+   SO_URI=tenantURL/odata/businessobject/SO_NUMBER_TESTS
+   APIKEY=APIKEY
+   ```
 
 4. Start the application.
 
@@ -52,18 +57,9 @@ Before deploying and using the Ivanti Data Import Node.js Application, make sure
 
 ## Configuration
 
-You can customize the behavior of the application by editing the `config.js` file. Here are some key configuration options:
+You can customize the behavior of the application by adjusting the values in the `.env` file. Here are some key environment variables you can set:
 
-- `apiEndpoint`: The URL of your Ivanti API endpoint.
-- `authMethod`: The authentication method to use (e.g., API key, OAuth).
-- `apiKey`: Your API key if using API key authentication.
-- `oauthCredentials`: OAuth credentials if using OAuth authentication.
-- `importJobs`: Configure the import jobs, including source files, field mappings, and schedules.
-- ...
-
-## License
-
-This application is open-source and distributed under the MIT License. See [LICENSE](LICENSE) for more information.
-
+- `SO_URI`: The URL of your Ivanti API endpoint.
+- `APIKEY`: Your API key for authentication.
 
 ```
