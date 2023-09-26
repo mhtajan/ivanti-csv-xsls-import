@@ -1,4 +1,3 @@
-```markdown
 # Ivanti Data Import Node.js Application
 
 ## Overview
