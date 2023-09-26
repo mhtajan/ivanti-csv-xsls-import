@@ -30,8 +30,8 @@ Before deploying and using the Ivanti Data Import Node.js Application, make sure
 1. Clone this repository to your server.
 
    ```bash
-   git clone https://github.com/mhtajan/ivanti-csv-xsls-import.git
-   cd ivanti-csv-xsls-import
+   git clone https://github.com/your-repo/ivanti-data-import-app.git
+   cd ivanti-data-import-app
    ```
 
 2. Install the required Node.js packages using npm.
@@ -47,13 +47,19 @@ Before deploying and using the Ivanti Data Import Node.js Application, make sure
    APIKEY=APIKEY
    ```
 
-4. Start the application.
+4. Create the following folders in the application directory to manage processed, unprocessed, and failed files:
+
+   - `processed`: To store successfully processed files.
+   - `unprocessed`: To store files waiting for processing.
+   - `failed`: To store files that failed to import.
+
+5. Start the application.
 
    ```bash
    npm start
    ```
 
-5. The application will run in the background, periodically checking for new import jobs and executing them according to the configured schedule.
+6. The application will run in the background, periodically checking for new import jobs and executing them according to the configured schedule.
 
 ## Configuration
 
