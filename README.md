@@ -1,4 +1,3 @@
-```markdown
 # Ivanti Data Import Node.js Application
 
 ## Overview
@@ -67,5 +66,3 @@ You can customize the behavior of the application by adjusting the values in the
 
 - `SO_URI`: The URL of your Ivanti API endpoint.
 - `APIKEY`: Your API key for authentication.
-
-```
