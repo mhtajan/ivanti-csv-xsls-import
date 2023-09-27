@@ -19,17 +19,13 @@ const processExcelFile = async (file) => {
   }
 
   try {
-    // Read the Excel file
+  
     const workbook = XLSX.readFile(filePath);
-
-    // Extract the first sheet (you can modify this if needed)
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
-
-    // Convert the worksheet to an array of objects, using the first row as headers
     const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-    // Remove the first element (headers) from the data array
+
     const headers = data.shift();
 
     // Create an array of objects with headers as keys and rows as values
@@ -41,11 +37,9 @@ const processExcelFile = async (file) => {
       return obj;
     });
 
-    // Perform your processing logic here (e.g., logging or further operations)
-    console.log(`Processing: ${file}`);
-    //console.log(result);
 
-    // Process each data object asynchronously
+    console.log(`Processing: ${file}`);
+
     for (const dataItem of result) {
       const payload = {
         description: dataItem.Description,
@@ -60,6 +54,9 @@ const processExcelFile = async (file) => {
         addressOfInvoice: dataItem['Address to send the invoice'],
         emailAddress: dataItem['E-Mail Address'],
       };
+
+      // Add a 3-second delay before processing the next data item
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       await middleware.createObject(payload);
     }
 
@@ -76,7 +73,22 @@ const processExcelFile = async (file) => {
   }
 };
 
-// Process Excel files in the unprocessed folder
-fs.readdirSync(unprocessedFolder).forEach(processExcelFile);
+// Function to process new files in the unprocessed folder
+const processNewFilesInUnprocessedFolder = () => {
+  fs.watch(unprocessedFolder, { persistent: true }, async (eventType, filename) => {
+    if (eventType === 'rename' && filename && path.extname(filename) === '.xlsx') {
+      // Check if the file actually exists before processing it
+      const filePath = path.join(unprocessedFolder, filename);
+      if (fs.existsSync(filePath)) {
+        // Add a 3-second delay before processing the new file
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        processExcelFile(filename);
+      }
+    }
+  });
+};
 
-console.log('Processing complete.');
+
+
+fs.readdirSync(unprocessedFolder).forEach(processExcelFile);
+processNewFilesInUnprocessedFolder();
