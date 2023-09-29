@@ -10,11 +10,12 @@ const failedFolder = './files/failed';
 // Ensure the "processed" and "failed" folders exist
 fs.ensureDirSync(processedFolder);
 fs.ensureDirSync(failedFolder);
+fs.ensureDirSync(unprocessedFolder);
 
 const processExcelFile = async (file) => {
   const filePath = path.join(unprocessedFolder, file);
 
-  if (path.extname(file) !== '.xlsx') {
+  if (path.extname(file) !== '.xlsx'|| path.extname(file) !== '.XLSX') {
     return; // Skip files with extensions other than .xlsx
   }
 
